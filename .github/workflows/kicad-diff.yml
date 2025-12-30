@@ -1,0 +1,43 @@
+name: KiCad Diff
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - master
+
+jobs:
+  kicad-diff:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # Necesario para comparar commits
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install pillow
+          pip install numpy
+          pip install matplotlib
+
+      - name: Run KiCad Diff (PCB + Schematic)
+        run: |
+          python Scripts/kicad-diff/kicad-diff.py \
+            ${{ github.event.pull_request.base.sha }} \
+            ${{ github.event.pull_request.head.sha }} \
+            --board KiCad/BMS_MASTER_25_V0.0.kicad_pcb \
+            --schematic KiCad/BMS_MASTER_25_V0.0.kicad_sch \
+            --output diff-output
+
+      - name: Upload diff artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: kicad-diff
+          path: diff-output
