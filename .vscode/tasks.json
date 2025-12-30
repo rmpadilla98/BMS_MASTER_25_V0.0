@@ -1,0 +1,106 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "KiCad Diff (HEAD~1 vs HEAD)",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "./Scripts/kicad-diff/kicad-diff.py",
+                "HEAD~1",
+                "HEAD",
+                "--board",
+                "./KiCad/BMS_MASTER_25_V0.0.kicad_pcb",
+                "--output",
+                "./Outputs/diff"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+
+        {
+            "label": "KiCad Diff (develop vs master)",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "./Scripts/kicad-diff/kicad-diff.py",
+                "origin/master",
+                "origin/develop",
+                "--board",
+                "./KiCad/BMS_MASTER_25_V0.0.kicad_pcb",
+                "--output",
+                "./Outputs/diff-branches"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+
+        {
+            "label": "KiCad Diff (solo esquemático)",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "./Scripts/kicad-diff/kicad-diff.py",
+                "HEAD~1",
+                "HEAD",
+                "--schematic",
+                "./KiCad/BMS_MASTER_25_V0.0.kicad_sch",
+                "--output",
+                "./Outputs/diff-schematic"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+
+        {
+            "label": "KiCad Diff (solo PCB)",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "./Scripts/kicad-diff/kicad-diff.py",
+                "HEAD~1",
+                "HEAD",
+                "--board",
+                "./KiCad/BMS_MASTER_25_V0.0.kicad_pcb",
+                "--output",
+                "./Outputs/diff-pcb"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+
+        {
+            "label": "KiCad Diff (PCB + esquemático)",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "./Scripts/kicad-diff/kicad-diff.py",
+                "HEAD~1",
+                "HEAD",
+                "--board",
+                "./KiCad/BMS_MASTER_25_V0.0.kicad_pcb",
+                "--schematic",
+                "./KiCad/BMS_MASTER_25_V0.0.kicad_sch",
+                "--output",
+                "./Outputs/diff-full"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}
+
